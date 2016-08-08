@@ -1,5 +1,6 @@
 package pl.wroc.uni.unf.webservice.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,30 +19,34 @@ import pl.wroc.uni.unf.domain.entity.User;
 public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public User user(
+    public ResponseEntity<User> user(
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
 
         User exampleUser = new User();
         exampleUser.setUsername("test");
 
-        return exampleUser;
+        return new ResponseEntity<>(exampleUser, new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity addUser(
-            @RequestParam(value="title", defaultValue="default") String newsTitle,
-            @RequestParam(value="description", defaultValue="default") String newsDescription,
-            @RequestParam(value="token", defaultValue="-1") Long userToken) {
+            @RequestParam(value="login", defaultValue="default") String login,
+            @RequestParam(value="password", defaultValue="default") String password,
+            @RequestParam(value="email", defaultValue="default") String email)
+    {
 
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        User exampleUser = new User();
+        exampleUser.setId(0L);
+
+        return new ResponseEntity<>(exampleUser.getId(), new HttpHeaders(), HttpStatus.OK);
+
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
     public ResponseEntity deleteUser(
-            @RequestParam(value="id", defaultValue="0") Long newsId,
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
 
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

@@ -1,5 +1,6 @@
 package pl.wroc.uni.unf.webservice.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import pl.wroc.uni.unf.domain.entity.News;
 public class NewsController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public News news(
+    public ResponseEntity<News> news(
             @RequestParam(value="id", defaultValue="-1") Long newsId,
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
 
@@ -25,16 +26,20 @@ public class NewsController {
         exampleNews.setDescription("test");
         exampleNews.setId(newsId);
 
-        return exampleNews;
+        return new ResponseEntity<>(exampleNews, new HttpHeaders(), HttpStatus.OK);
     }
 
+    /* return News ID */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity addNews(
+    public ResponseEntity<Long> addNews(
             @RequestParam(value="title", defaultValue="default") String newsTitle,
             @RequestParam(value="description", defaultValue="default") String newsDescription,
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
 
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        News exampleNews = new News();
+        exampleNews.setId(0L);
+
+        return new ResponseEntity<>(exampleNews.getId(), new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
@@ -42,7 +47,7 @@ public class NewsController {
             @RequestParam(value="id", defaultValue="0") Long newsId,
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
 
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
