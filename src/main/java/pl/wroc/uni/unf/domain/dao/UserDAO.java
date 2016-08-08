@@ -1,6 +1,6 @@
 package pl.wroc.uni.unf.domain.dao;
 
-import pl.wroc.uni.unf.domain.dao.bean.BaseEntityDAO;
+import org.springframework.stereotype.Repository;
 import pl.wroc.uni.unf.domain.entity.User;
 
 import java.util.List;

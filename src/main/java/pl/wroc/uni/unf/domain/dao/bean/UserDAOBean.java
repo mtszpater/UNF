@@ -1,5 +1,6 @@
 package pl.wroc.uni.unf.domain.dao.bean;
 
+import org.springframework.stereotype.Repository;
 import pl.wroc.uni.unf.domain.dao.UserDAO;
 import pl.wroc.uni.unf.domain.entity.User;
 
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * @author Notechus.
  */
+@Repository("userDAO")
 public class UserDAOBean extends BaseEntityDAO<User, Long> implements UserDAO {
 
 	@Override

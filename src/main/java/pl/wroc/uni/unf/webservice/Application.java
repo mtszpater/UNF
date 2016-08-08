@@ -1,4 +1,4 @@
-package pl.wroc.uni.unf.webservice.controller;
+package pl.wroc.uni.unf.webservice;
 
 
 import org.springframework.boot.SpringApplication;

@@ -4,5 +4,13 @@
                  http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">
 
     <package>pl.wroc.uni.unf.domain.entity</package>
-
+    <named-query name="NewsDAO_findByDate">
+        <query>select n from News n where n.date = :date</query>
+    </named-query>
+    <named-query name="NewsDAO_findByPlace">
+        <query>select n from News n where n.place = :place</query>
+    </named-query>
+    <named-query name="NewsDAO_findByUser">
+        <query>select n from News n where n.user.username = :username</query>
+    </named-query>
 </entity-mappings>

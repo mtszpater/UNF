@@ -27,6 +27,12 @@ public class News implements java.io.Serializable {
 	@Column(name = "DATE", nullable = false)
 	private Date date;
 
+	@Column(name = "DURATION", nullable = false)
+	private Integer duration;
+
+	@Column(name = "PLACE", nullable = false)
+	private String place;
+
 	public Long getId() {
 		return id;
 	}
@@ -65,5 +71,21 @@ public class News implements java.io.Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public Integer getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
 	}
 }
