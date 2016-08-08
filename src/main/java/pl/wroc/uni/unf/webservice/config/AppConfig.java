@@ -1,9 +1,10 @@
-package pl.wroc.uni.unf.webservice;
+package pl.wroc.uni.unf.webservice.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author Notechus.
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties
 @EnableConfigurationProperties
+@EnableTransactionManagement
 public class AppConfig {
 
 	@Value("${server.port}")
@@ -21,4 +23,5 @@ public class AppConfig {
 
 	@Value("${server.threadpool}")
 	private int threadPool;
+
 }
