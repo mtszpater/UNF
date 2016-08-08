@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "unf.database.url",
+      "type": "java.lang.String",
+      "description": "Description for unf.database.url."
+    },
+    {
+      "name": "unf.database.user",
+      "type": "java.lang.String",
+      "description": "Description for unf.database.user."
+    },
+    {
+      "name": "unf.database.password",
+      "type": "java.lang.String",
+      "description": "Description for unf.database.password."
+    },
+    {
+      "name": "server.host",
+      "type": "java.lang.String",
+      "description": "Description for server.host."
+    },
+    {
+      "name": "server.threadpool",
+      "type": "java.lang.String",
+      "description": "Description for server.threadpool."
+    }
+  ]
+}

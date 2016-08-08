@@ -15,8 +15,8 @@ public class News implements java.io.Serializable {
 	@Column(name = "NEWS_ID", nullable = false, unique = true)
 	private Long id;
 
-	@Column(name = "USER_ID", nullable = false)
-	private Long userId;
+	@ManyToOne(targetEntity = User.class)
+	private User user;
 
 	@Column(name = "TITLE", nullable = false)
 	private String title;
@@ -35,12 +35,12 @@ public class News implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getTitle() {

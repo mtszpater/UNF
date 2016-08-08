@@ -3,6 +3,7 @@ package pl.wroc.uni.unf.domain.dao;
 import pl.wroc.uni.unf.domain.entity.User;
 
 import java.util.List;
+
 /**
  * @author Notechus.
  */
