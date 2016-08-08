@@ -6,30 +6,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.wroc.uni.unf.domain.entity.News;
+import pl.wroc.uni.unf.domain.entity.User;
 
 /**
  * @author pater.
  */
 
 @RestController
-@RequestMapping("/api/v1/news")
-public class NewsController {
+@RequestMapping("/api/v1/user")
+
+public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public News news(
-            @RequestParam(value="id", defaultValue="-1") Long newsId,
+    public User user(
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
 
-        News exampleNews = new News();
-        exampleNews.setDescription("test");
-        exampleNews.setId(newsId);
+        User exampleUser = new User();
+        exampleUser.setUsername("test");
 
-        return exampleNews;
+        return exampleUser;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity addNews(
+    public ResponseEntity addUser(
             @RequestParam(value="title", defaultValue="default") String newsTitle,
             @RequestParam(value="description", defaultValue="default") String newsDescription,
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
@@ -38,7 +37,7 @@ public class NewsController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity deleteNews(
+    public ResponseEntity deleteUser(
             @RequestParam(value="id", defaultValue="0") Long newsId,
             @RequestParam(value="token", defaultValue="-1") Long userToken) {
 
