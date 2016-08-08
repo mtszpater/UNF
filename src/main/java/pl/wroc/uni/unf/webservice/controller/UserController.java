@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.wroc.uni.unf.domain.entity.User;
 
 /**
- * @author pater.
+ * @author pater
  */
 
 @RestController
