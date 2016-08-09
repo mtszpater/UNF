@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.wroc.uni.unf.domain.entity.News;
 import pl.wroc.uni.unf.domain.service.NewsService;
+import pl.wroc.uni.unf.domain.to.NewsTO;
+
+import java.util.List;
 
 /**
  * @author pater
@@ -22,18 +26,19 @@ public class NewsController {
 	@Autowired
 	private NewsService newsService;
 
+	@Secured("ROLE_USER")
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<News> news(
-			@RequestParam(value = "id", defaultValue = "-1") Long newsId,
-			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
+	public ResponseEntity<List<NewsTO>> getNewsForUser(
+			@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "token", required = true, defaultValue = "-1") Long userToken) {
 
-		News exampleNews = new News();
-		exampleNews.setDescription("test");
-		exampleNews.setId(newsId);
-		return new ResponseEntity<>(exampleNews, new HttpHeaders(), HttpStatus.OK);
+		List<NewsTO> news = newsService.findByUser(username);
+
+		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	/* return News ID */
+	@Secured("ROLE_MODERATOR")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Long> addNews(
 			@RequestParam(value = "title", defaultValue = "default") String newsTitle,

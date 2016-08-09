@@ -10,11 +10,11 @@ import java.util.Date;
  */
 public class NewsTO {
 
+	private Long id;
+	private String username;
 	private String title;
 	private String description;
 	private Date date;
-	private Integer duration;
-	private String place;
 
 	public NewsTO() {
 
@@ -24,8 +24,6 @@ public class NewsTO {
 		this.title = title;
 		this.description = description;
 		this.date = date;
-		this.duration = duration;
-		this.place = place;
 	}
 
 	public String getTitle() {
@@ -52,22 +50,6 @@ public class NewsTO {
 		this.date = date;
 	}
 
-	public Integer getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Integer duration) {
-		this.duration = duration;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
-	}
-
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) return true;
@@ -79,15 +61,13 @@ public class NewsTO {
 		return new EqualsBuilder().append(title, castOther.title)
 				.append(description, castOther.description)
 				.append(date, castOther.date)
-				.append(duration, castOther.duration)
-				.append(place, castOther.place)
 				.build();
 	}
 
 	@Override
 	public int hashCode() {
 		return new HashCodeBuilder().append(date)
-				.append(place)
+				.append(username)
 				.hashCode();
 	}
 }

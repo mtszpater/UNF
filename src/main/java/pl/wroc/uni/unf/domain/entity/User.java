@@ -10,10 +10,6 @@ import javax.persistence.*;
 public class User implements java.io.Serializable {
 
 	@Id
-	@GeneratedValue
-	@Column(name = "USER_ID", nullable = false, unique = true)
-	private Long id;
-
 	@Column(name = "USERNAME", nullable = false, unique = true)
 	private String username;
 
@@ -23,13 +19,8 @@ public class User implements java.io.Serializable {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	@Column(name = "ENABLED", nullable = false)
+	private Boolean enabled;
 
 	public String getUsername() {
 		return username;
@@ -53,5 +44,13 @@ public class User implements java.io.Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 }

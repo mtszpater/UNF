@@ -19,14 +19,16 @@
     <authentication-manager>
         <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource"/>
-            <password-encoder hash="sha-256"/>
+            <password-encoder ref="bcryptEncoder"/>
         </authentication-provider>
     </authentication-manager>
 
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <beans:property name="url" value="jdbc:mysql://eu-cdbr-azure-north-e.cloudapp.net:3306/unf_dev"/>
-        <beans:property name="username" value="bc39b32cb5b9d9"/>
-        <beans:property name="password" value="cdfc3f89"/>
+        <beans:property name="driverClassName" value="${spring.datasource.driver-class-name}"/>
+        <beans:property name="url" value="${spring.datasource.url}"/>
+        <beans:property name="username" value="${spring.datasource.username}"/>
+        <beans:property name="password" value="${spring.datasource.password}"/>
     </beans:bean>
+    <!-- For hashing and salting user passwords -->
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 </beans:beans>

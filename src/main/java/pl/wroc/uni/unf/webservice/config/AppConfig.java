@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import pl.wroc.uni.unf.domain.dao.NewsDAO;
 import pl.wroc.uni.unf.domain.dao.bean.NewsDAOBean;
 import pl.wroc.uni.unf.domain.service.NewsService;
@@ -17,6 +18,7 @@ import pl.wroc.uni.unf.domain.service.bean.NewsServiceBean;
 @Configuration
 @ConfigurationProperties
 @EnableConfigurationProperties
+@EnableWebMvc
 @EnableTransactionManagement
 public class AppConfig {
 

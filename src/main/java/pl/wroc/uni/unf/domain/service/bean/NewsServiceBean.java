@@ -23,10 +23,7 @@ public class NewsServiceBean implements NewsService {
 	public void postNews(String title, String description, Date date, Integer duration, String place, Integer userId) {
 		// user_id is temporary i promise
 		User user = new User();
-		user.setUsername("mpater");
-		user.setPassword("2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b");
-		user.setEmail("mpater@unf.uni.wroc.pl");
-		user.setId(11L);
+
 		// TEMPORARY HACK
 		News news = new News();
 		news.setTitle(title);

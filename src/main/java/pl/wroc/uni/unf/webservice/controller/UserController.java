@@ -18,36 +18,34 @@ import pl.wroc.uni.unf.domain.entity.User;
 
 public class UserController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<User> user(
-            @RequestParam(value="token", defaultValue="-1") Long userToken) {
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<User> user(
+			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
-        User exampleUser = new User();
-        exampleUser.setUsername("test");
+		User exampleUser = new User();
+		exampleUser.setUsername("test");
 
-        return new ResponseEntity<>(exampleUser, new HttpHeaders(), HttpStatus.OK);
-    }
+		return new ResponseEntity<>(exampleUser, new HttpHeaders(), HttpStatus.OK);
+	}
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity addUser(
-            @RequestParam(value="login", defaultValue="default") String login,
-            @RequestParam(value="password", defaultValue="default") String password,
-            @RequestParam(value="email", defaultValue="default") String email)
-    {
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity addUser(
+			@RequestParam(value = "login", defaultValue = "default") String login,
+			@RequestParam(value = "password", defaultValue = "default") String password,
+			@RequestParam(value = "email", defaultValue = "default") String email) {
 
-        User exampleUser = new User();
-        exampleUser.setId(0L);
+		User exampleUser = new User();
 
-        return new ResponseEntity<>(exampleUser.getId(), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(exampleUser, new HttpHeaders(), HttpStatus.OK);
 
-    }
+	}
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity deleteUser(
-            @RequestParam(value="token", defaultValue="-1") Long userToken) {
+	@RequestMapping(method = RequestMethod.DELETE)
+	public ResponseEntity deleteUser(
+			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
-        return new ResponseEntity(HttpStatus.OK);
-    }
+		return new ResponseEntity(HttpStatus.OK);
+	}
 
 
 }
