@@ -6,6 +6,12 @@
     <groupId>UNF</groupId>
     <artifactId>webservice</artifactId>
     <version>1.0-SNAPSHOT</version>
+    
+    <parent>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-parent</artifactId>
+         <version>1.4.0.RELEASE</version>
+    </parent>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/net.sf.dozer/dozer -->
@@ -44,17 +50,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
+         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring-boot.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
