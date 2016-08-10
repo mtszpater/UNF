@@ -112,16 +112,16 @@ public class NewsControllerTest {
 
 
 
-    @Test
-    public void ShouldReturnSuccessAfterDeleteNews() throws Exception {
-
-        Mockito.when(newsService.findByUser("usr")).thenReturn(new ArrayList<NewsTO>());
-
-        NewsController controller = new NewsController(newsService);
-
-        assertEquals(controller.deleteNews(0L, 0L), new ResponseEntity(HttpStatus.OK));
-
-    }
+//    @Test
+//    public void ShouldReturnSuccessAfterDeleteNews() throws Exception {
+//
+//        Mockito.when(newsService.findByUser("usr")).thenReturn(new ArrayList<NewsTO>());
+//
+//        NewsController controller = new NewsController(newsService);
+//
+//        assertEquals(controller.deleteNews(0L, 0L), new ResponseEntity(HttpStatus.OK));
+//
+//    }
 
 
 
