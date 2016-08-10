@@ -7,9 +7,6 @@
     <named-query name="NewsDAO_findByDate">
         <query>select n from News n where n.date = :date</query>
     </named-query>
-    <named-query name="NewsDAO_findByPlace">
-        <query>select n from News n where n.place = :place</query>
-    </named-query>
     <named-query name="NewsDAO_findByUser">
         <query>select n from News n where n.user.username = :username</query>
     </named-query>

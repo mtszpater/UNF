@@ -1,6 +1,7 @@
 package pl.wroc.uni.unf.domain.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Notechus.
@@ -21,6 +22,9 @@ public class User implements java.io.Serializable {
 
 	@Column(name = "ENABLED", nullable = false)
 	private Boolean enabled;
+
+	@OneToMany(targetEntity = News.class)
+	private List<News> news;
 
 	public String getUsername() {
 		return username;
@@ -52,5 +56,13 @@ public class User implements java.io.Serializable {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<News> getNews() {
+		return news;
+	}
+
+	public void setNews(List<News> news) {
+		this.news = news;
 	}
 }

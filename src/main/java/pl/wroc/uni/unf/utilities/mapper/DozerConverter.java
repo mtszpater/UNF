@@ -16,15 +16,15 @@ public class DozerConverter {
 		dozerBeanMapper = new DozerBeanMapper();
 	}
 
-	public Object convert(Object ob, Class c) {
-		return dozerBeanMapper.map(ob, c);
+	public <T> T convert(Object source, Class<T> destinationClass) {
+		return dozerBeanMapper.map(source, destinationClass);
 	}
 
-	public Object convertList(List list, Class c) {
-		List resList = new ArrayList();
+	public <T> List<T> convertList(List<?> list, Class<T> destinationClass) {
+		List<T> resultList = new ArrayList<T>(list.size());
 		for (Object i : list) {
-			resList.add(convert(i, c));
+			resultList.add(convert(i, destinationClass));
 		}
-		return resList;
+		return resultList;
 	}
 }

@@ -39,8 +39,6 @@ public class DozerConverterTest {
 		news.setTitle(title);
 		news.setDescription(description);
 		news.setDate(date);
-		news.setDuration(duration);
-		news.setPlace(place);
 
 		return news;
 	}

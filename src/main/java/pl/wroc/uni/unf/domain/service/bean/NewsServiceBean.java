@@ -8,6 +8,7 @@ import pl.wroc.uni.unf.domain.service.NewsService;
 import pl.wroc.uni.unf.domain.to.NewsTO;
 import pl.wroc.uni.unf.utilities.mapper.ObjectMapper;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +30,6 @@ public class NewsServiceBean implements NewsService {
 		news.setTitle(title);
 		news.setDescription(description);
 		news.setDate(date);
-		news.setDuration(duration);
-		news.setPlace(place);
 		news.setUser(user);
 		newsDAO.create(news);
 	}
@@ -51,12 +50,6 @@ public class NewsServiceBean implements NewsService {
 	@Override
 	public List<NewsTO> findByUser(String username) {
 		List<News> newsList = newsDAO.findByUser(username);
-		return null;
-	}
-
-	@Override
-	public List<NewsTO> findByPlace(String place) {
-		List<News> newsList = newsDAO.findByPlace(place);
 		return null;
 	}
 
