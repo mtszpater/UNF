@@ -26,13 +26,30 @@ public class NewsController {
 	@Autowired
 	private NewsService newsService;
 
+
+
+	public NewsController(NewsService newsService) {
+
+		this.newsService = newsService;
+	}
+
+	public NewsController() {
+	}
+
 	@Secured("ROLE_USER")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<NewsTO>> getNewsForUser(
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "token", required = true, defaultValue = "-1") Long userToken) {
 
-		List<NewsTO> news = newsService.findByUser(username);
+		List<NewsTO> news;
+
+		if(username == null)
+			news = newsService.findAll();
+		else
+			news = newsService.findByUser(username);
+
+
 
 		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -49,7 +66,7 @@ public class NewsController {
 		News exampleNews = new News();
 		exampleNews.setId(0L);
 
-		return new ResponseEntity<>(exampleNews.getId(), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
@@ -61,4 +78,9 @@ public class NewsController {
 	}
 
 
+
+
+	public long getPostById(int i, long l) {
+		return 0;
+	}
 }
