@@ -13,6 +13,7 @@ import pl.wroc.uni.unf.domain.entity.News;
 import pl.wroc.uni.unf.domain.service.NewsService;
 import pl.wroc.uni.unf.domain.to.NewsTO;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -63,8 +64,6 @@ public class NewsController {
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 		// usage: newsService.postNews(a,b,c,d....);
 
-		News exampleNews = new News();
-		exampleNews.setId(0L);
 
 		return new ResponseEntity(HttpStatus.OK);
 	}
@@ -73,6 +72,8 @@ public class NewsController {
 	public ResponseEntity deleteNews(
 			@RequestParam(value = "id", defaultValue = "0") Long newsId,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
+
+
 
 		return new ResponseEntity(HttpStatus.OK);
 	}
