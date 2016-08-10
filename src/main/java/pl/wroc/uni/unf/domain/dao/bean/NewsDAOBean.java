@@ -23,14 +23,6 @@ public class NewsDAOBean extends BaseEntityDAO<News, Long> implements NewsDAO {
 	}
 
 	@Override
-	public List<News> findByPlace(String place) {
-		Query query = entityManager.createNamedQuery("NewsDAO_findByPlace");
-		query.setParameter("place", place);
-
-		return query.getResultList();
-	}
-
-	@Override
 	public List<News> findByUser(String username) {
 		Query query = entityManager.createNamedQuery("NewsDAO_findByUser");
 		query.setParameter("username", username);

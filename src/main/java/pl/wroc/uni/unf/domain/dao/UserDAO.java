@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface UserDAO extends EntityDAO<User, Long> {
 
-	public List<User> findUserByUsername(String username);
+	public User findUserByUsername(String username);
 
-	public List<User> findUserByEmail(String email);
+	public User findUserByEmail(String email);
 
 }

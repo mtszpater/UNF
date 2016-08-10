@@ -14,19 +14,18 @@ import java.util.List;
 public class UserDAOBean extends BaseEntityDAO<User, Long> implements UserDAO {
 
 	@Override
-	public List<User> findUserByUsername(String username) {
-		//Query<User> query = entityManager.createNamedQuery("UserDAO_findAll");
+	public User findUserByUsername(String username) {
 		Query query = entityManager.createNamedQuery("UserDAO_findByUsername");
 		query.setParameter("username", username);
 
-		return query.getResultList();
+		return (User) query.getSingleResult();
 	}
 
 	@Override
-	public List<User> findUserByEmail(String email) {
+	public User findUserByEmail(String email) {
 		Query query = entityManager.createNamedQuery("UserDAO_findByEmail");
 		query.setParameter("email", email);
 
-		return query.getResultList();
+		return (User) query.getSingleResult();
 	}
 }
