@@ -31,7 +31,7 @@ public class NewsControllerTest {
 
 		NewsController controller = new NewsController(newsService);
 
-		assertEquals(controller.getNewsForUser(null, 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
+		assertEquals(controller.getNews(null, 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
 
 	}
 
@@ -42,7 +42,7 @@ public class NewsControllerTest {
 
 		NewsController controller = new NewsController(newsService);
 
-		assertEquals(controller.getNewsForUser("user", 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
+		assertEquals(controller.getNews("user", 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
 
 	}
 

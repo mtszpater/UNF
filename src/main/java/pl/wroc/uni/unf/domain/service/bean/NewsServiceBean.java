@@ -26,7 +26,6 @@ public class NewsServiceBean implements NewsService {
 
 	@Override
 	public void postNews(String title, String description, Date date, String username) {
-
 		User user = userDAO.findUserByUsername(username);
 
 		News news = new News();
@@ -41,6 +40,16 @@ public class NewsServiceBean implements NewsService {
 	public NewsTO updateNews(News news) {
 		News updated = newsDAO.update(news);
 		return ObjectMapper.getInstance().getDozerConverter().convert(updated, NewsTO.class);
+	}
+
+	@Override
+	public NewsTO updateNews(Long id, String title, String description) {
+		News news = newsDAO.find(id);
+		news.setTitle(title);
+		news.setDescription(description);
+		news.setDate(new Date()); // temporary - we will decide later if it stays
+
+		return ObjectMapper.getInstance().getDozerConverter().convert(news, NewsTO.class);
 	}
 
 	@Override

@@ -25,4 +25,6 @@ public interface NewsService {
 	public List<NewsTO> findByDate(Date date);
 
 	public NewsTO findById(Long id);
+
+	NewsTO updateNews(Long id, String title, String description);
 }

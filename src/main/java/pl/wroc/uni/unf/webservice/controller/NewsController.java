@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.wroc.uni.unf.domain.entity.News;
 import pl.wroc.uni.unf.domain.service.NewsService;
 import pl.wroc.uni.unf.domain.to.NewsTO;
 
@@ -38,7 +37,7 @@ public class NewsController {
 
 	@Secured("ROLE_USER")
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<NewsTO>> getNewsForUser(
+	public ResponseEntity<List<NewsTO>> getNews(
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "token", required = true, defaultValue = "-1") Long userToken) {
 
@@ -49,6 +48,17 @@ public class NewsController {
 		} else {
 			news = newsService.findByUser(username);
 		}
+
+		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
+	}
+
+	@Secured("ROLE_USER")
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<NewsTO> getNewsById(
+			@RequestParam(value = "id", defaultValue = "0") Long newsId,
+			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
+
+		NewsTO news = newsService.findById(newsId);
 
 		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -67,26 +77,18 @@ public class NewsController {
 	}
 
 	@Secured("ROLE_MODERATOR")
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<NewsTO> updateNews(
 			@RequestParam(value = "title", defaultValue = "default") String newsTitle,
 			@RequestParam(value = "description", defaultValue = "default") String newsDescription,
 			@RequestParam(value = "id", defaultValue = "0") Long newsId,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
+		NewsTO news = newsService.updateNews(newsId, newsTitle, newsDescription);
 
-		NewsTO newsTO = newsService.findById(newsId);
-		News news = new News();
-		news.setDescription(newsDescription);
-		news.setTitle(newsTitle);
-		news.setId(newsId);
-//		news.setUser(newsTO.getUsername());
-
-
-		newsService.updateNews(news);
-
-		return new ResponseEntity<>(newsService.updateNews(news), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
 	}
+
 
 	@Secured("ROLE_MODERATOR")
 	@RequestMapping(method = RequestMethod.DELETE)
@@ -97,15 +99,5 @@ public class NewsController {
 		newsService.deleteNews(newsId);
 
 		return new ResponseEntity(HttpStatus.OK);
-	}
-
-
-	@Secured("ROLE_USER")
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<NewsTO> getNewsById(
-			@RequestParam(value = "id", defaultValue = "0") Long newsId,
-			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
-
-		return new ResponseEntity<>(newsService.findById(newsId), new HttpHeaders(), HttpStatus.OK);
 	}
 }
