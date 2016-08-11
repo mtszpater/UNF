@@ -13,7 +13,7 @@ import pl.wroc.uni.unf.domain.entity.News;
 import pl.wroc.uni.unf.domain.service.NewsService;
 import pl.wroc.uni.unf.domain.to.NewsTO;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +26,6 @@ public class NewsController {
 
 	@Autowired
 	private NewsService newsService;
-
 
 
 	public NewsController(NewsService newsService) {
@@ -45,7 +44,7 @@ public class NewsController {
 
 		List<NewsTO> news;
 
-		if(username == null) {
+		if (username == null) {
 			news = newsService.findAll();
 		} else {
 			news = newsService.findByUser(username);
@@ -62,9 +61,9 @@ public class NewsController {
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
-		newsService.postNews(newsTitle, newsDescription, new Date(1234123), username);
+		newsService.postNews(newsTitle, newsDescription, new Date(), username);
 
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@Secured("ROLE_MODERATOR")
@@ -74,7 +73,6 @@ public class NewsController {
 			@RequestParam(value = "description", defaultValue = "default") String newsDescription,
 			@RequestParam(value = "id", defaultValue = "0") Long newsId,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
-
 
 
 		NewsTO newsTO = newsService.findById(newsId);
@@ -104,7 +102,7 @@ public class NewsController {
 
 	@Secured("ROLE_USER")
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<NewsTO> getPostById(
+	public ResponseEntity<NewsTO> getNewsById(
 			@RequestParam(value = "id", defaultValue = "0") Long newsId,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 

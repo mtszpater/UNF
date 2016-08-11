@@ -18,102 +18,98 @@ import static org.junit.Assert.*;
 
 /**
  * author @pater
- *
  */
 public class NewsControllerTest {
 
-    @Mock
-    private NewsService newsService = Mockito.mock(NewsServiceBean.class);
+	@Mock
+	private NewsService newsService = Mockito.mock(NewsServiceBean.class);
 
-    private News createNews()
-    {
-        News news = new News();
-        news.setDescription("Description");
-        news.setTitle("Title");
+	@Test
+	public void ShouldReturnListWithOneNews() throws Exception {
 
-        return news;
-    }
+		Mockito.when(newsService.findAll()).thenReturn(createListWithNews());
 
-    private NewsTO createNewsTO()
-    {
-        DozerConverter converter = new DozerConverter();
-        NewsTO mappedNewsTO = (NewsTO) converter.convert(createNews(), NewsTO.class);
+		NewsController controller = new NewsController(newsService);
 
-        return mappedNewsTO;
-    }
+		assertEquals(controller.getNewsForUser(null, 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
 
+	}
 
-    private List<NewsTO> createListWithNews()
-    {
-        List<NewsTO> listNews = new ArrayList<>();
-        listNews.add(createNewsTO());
-        listNews.add(createNewsTO());
+	@Test
+	public void ShouldReturnListWithOneNewsForUser() throws Exception {
 
-        return listNews;
-    }
+		Mockito.when(newsService.findByUser("user")).thenReturn(createListWithNews());
 
-    @Test
-    public void ShouldReturnListWithOneNews() throws Exception {
+		NewsController controller = new NewsController(newsService);
 
-        Mockito.when(newsService.findAll()).thenReturn(createListWithNews());
+		assertEquals(controller.getNewsForUser("user", 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
 
-        NewsController controller = new NewsController(newsService);
+	}
 
-        assertEquals(controller.getNewsForUser(null, 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
+	@Test
+	public void ShouldReturnSuccessAfterPostNews() throws Exception {
 
-    }
+		NewsController controller = new NewsController();
 
-    @Test
-    public void ShouldReturnListWithOneNewsForUser() throws Exception {
+		assertEquals(controller.addNews("Title", "Description", "user", 0L), new ResponseEntity(HttpStatus.OK));
 
-        Mockito.when(newsService.findByUser("user")).thenReturn(createListWithNews());
-
-        NewsController controller = new NewsController(newsService);
-
-        assertEquals(controller.getNewsForUser("user", 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
-
-    }
+	}
 
 
-    @Test
-    public void ShouldReturnSuccessAfterPostNews() throws Exception {
+	@Test
+	public void ShouldReturnPostWhileGettingPostById() throws Exception {
 
-        NewsController controller = new NewsController();
+		Mockito.when(newsService.findById(0L)).thenReturn(createNewsTO());
 
-        assertEquals(controller.addNews("Title", "Description", "user", 0L), new ResponseEntity(HttpStatus.OK));
+		NewsController controller = new NewsController(newsService);
 
-    }
+		assertEquals(controller.getNewsById(0L, 0L), new ResponseEntity<>(createNewsTO(), new HttpHeaders(), HttpStatus.OK));
+	}
 
 
-    @Test
-    public void ShouldReturnPostWhileGettingPostById() throws Exception {
+	@Test
+	public void ShouldReturnSuccessAfterUpdateNews() throws Exception {
 
-        Mockito.when(newsService.findById(0L)).thenReturn(createNewsTO());
+		Mockito.when(newsService.updateNews(Matchers.anyObject())).thenReturn(createNewsTO());
 
-        NewsController controller = new NewsController(newsService);
+		NewsController controller = new NewsController(newsService);
 
-        assertEquals(controller.getPostById(0L, 0L), new ResponseEntity<>(createNewsTO(), new HttpHeaders(), HttpStatus.OK));
-    }
+		assertEquals(controller.updateNews("Title", "Description", 0L, 0L), new ResponseEntity<>(createNewsTO(), new HttpHeaders(), HttpStatus.OK));
 
-    @Test
-    public void ShouldReturnSuccessAfterUpdateNews() throws Exception {
+	}
 
-        Mockito.when(newsService.updateNews(Matchers.anyObject())).thenReturn(createNewsTO());
+	@Test
+	public void ShouldReturnSuccessAfterDeleteNews() throws Exception {
 
-        NewsController controller = new NewsController(newsService);
+		NewsController controller = new NewsController(newsService);
 
-        assertEquals(controller.updateNews("Title", "Description", 0L, 0L), new ResponseEntity<>(createNewsTO(), new HttpHeaders(), HttpStatus.OK));
+		assertEquals(controller.deleteNews(0L, 0L), new ResponseEntity(HttpStatus.OK));
 
-    }
+	}
 
-    @Test
-    public void ShouldReturnSuccessAfterDeleteNews() throws Exception {
+	private News createNews() {
+		News news = new News();
+		news.setDescription("Description");
+		news.setTitle("Title");
 
-        NewsController controller = new NewsController(newsService);
+		return news;
+	}
 
-        assertEquals(controller.deleteNews(0L, 0L),new ResponseEntity(HttpStatus.OK));
+	private NewsTO createNewsTO() {
+		DozerConverter converter = new DozerConverter();
+		NewsTO mappedNewsTO = (NewsTO) converter.convert(createNews(), NewsTO.class);
 
-    }
+		return mappedNewsTO;
+	}
+
+
+	private List<NewsTO> createListWithNews() {
+		List<NewsTO> listNews = new ArrayList<>();
+		listNews.add(createNewsTO());
+		listNews.add(createNewsTO());
+
+		return listNews;
+	}
 
 
 }
