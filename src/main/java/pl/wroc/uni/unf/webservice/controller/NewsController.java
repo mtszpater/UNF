@@ -45,43 +45,64 @@ public class NewsController {
 
 		List<NewsTO> news;
 
-		if(username == null)
+		if(username == null) {
 			news = newsService.findAll();
-		else
+		} else {
 			news = newsService.findByUser(username);
-
-
+		}
 
 		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
 	}
 
-	/* return News ID */
 	@Secured("ROLE_MODERATOR")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Long> addNews(
 			@RequestParam(value = "title", defaultValue = "default") String newsTitle,
 			@RequestParam(value = "description", defaultValue = "default") String newsDescription,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
-		// usage: newsService.postNews(a,b,c,d....);
 
+
+		/* FIND USER BY USERNAME/TOKEN */
+		newsService.postNews(newsTitle, newsDescription, new Date(1234123), "unf_dev");
 
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
+	@Secured("ROLE_MODERATOR")
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<NewsTO> updateNews(
+			@RequestParam(value = "title", defaultValue = "default") String newsTitle,
+			@RequestParam(value = "description", defaultValue = "default") String newsDescription,
+			@RequestParam(value = "id", defaultValue = "0") Long newsId,
+			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
+
+		News news = new News();
+		news.setDescription("Description");
+		news.setTitle("Title");
+
+		return new ResponseEntity<>(newsService.updateNews(news), new HttpHeaders(), HttpStatus.ACCEPTED);
+	}
+
+	@Secured("ROLE_MODERATOR")
 	@RequestMapping(method = RequestMethod.DELETE)
 	public ResponseEntity deleteNews(
 			@RequestParam(value = "id", defaultValue = "0") Long newsId,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
-
+		newsService.deleteNews(newsId);
 
 		return new ResponseEntity(HttpStatus.OK);
 	}
 
 
+	@Secured("ROLE_USER")
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<NewsTO> getPostById(
+			@RequestParam(value = "id", defaultValue = "0") Long newsId,
+			@RequestParam(value = "token", required = true, defaultValue = "-1") Long userToken) {
 
+		NewsTO news = newsService.findById(newsId);
 
-	public long getPostById(int i, long l) {
-		return 0;
+		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
 	}
 }
