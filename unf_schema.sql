@@ -35,3 +35,5 @@ insert into users(username, email, password, enabled) values ('unf_dev', 'unv_de
 insert into authorities (username, authority) value ('unf_dev','ROLE_USER');
 insert into authorities(username, authority) value('unf_dev', 'ROLE_MODERATOR');
 insert into authorities(username, authority) value('unf_dev', 'ROLE_ADMIN');
+
+insert into news(username, date, title, description) values ('unf_dev', TIMESTAMP('2015-08-08 08:00:00'),'Some event','Automatically scheduled event');

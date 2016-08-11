@@ -21,7 +21,7 @@ public class User implements java.io.Serializable {
 	private String password;
 
 	@Column(name = "ENABLED", nullable = false)
-	private Boolean enabled;
+	private boolean enabled;
 
 	@OneToMany(targetEntity = News.class)
 	private List<News> news;
@@ -50,11 +50,11 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public Boolean getEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
