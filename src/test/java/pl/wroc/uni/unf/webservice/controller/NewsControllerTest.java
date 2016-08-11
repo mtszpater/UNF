@@ -2,7 +2,6 @@ package pl.wroc.uni.unf.webservice.controller;
 
 import org.junit.Test;
 import org.mockito.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -81,13 +80,13 @@ public class NewsControllerTest {
 
         NewsController controller = new NewsController();
 
-        assertEquals(controller.addNews("Title", "Description", 0L), new ResponseEntity(HttpStatus.OK));
+        assertEquals(controller.addNews("Title", "Description", "user", 0L), new ResponseEntity(HttpStatus.OK));
 
     }
 
 
     @Test
-    public void ShouldReturnBadRequestWhileGettingPostById() throws Exception {
+    public void ShouldReturnPostWhileGettingPostById() throws Exception {
 
         Mockito.when(newsService.findById(0L)).thenReturn(createNewsTO());
 
@@ -99,7 +98,7 @@ public class NewsControllerTest {
     @Test
     public void ShouldReturnSuccessAfterUpdateNews() throws Exception {
 
-        Mockito.when(newsService.updateNews(createNews())).thenReturn(createNewsTO());
+        Mockito.when(newsService.updateNews(Matchers.anyObject())).thenReturn(createNewsTO());
 
         NewsController controller = new NewsController(newsService);
 
@@ -108,15 +107,13 @@ public class NewsControllerTest {
     }
 
     @Test
-    public void ShouldReturnSecucessAfterDeleteNews() throws Exception {
+    public void ShouldReturnSuccessAfterDeleteNews() throws Exception {
 
         NewsController controller = new NewsController(newsService);
 
         assertEquals(controller.deleteNews(0L, 0L),new ResponseEntity(HttpStatus.OK));
 
     }
-
-
 
 
 }
