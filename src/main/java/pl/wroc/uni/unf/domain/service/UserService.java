@@ -13,13 +13,11 @@ public interface UserService {
 
 	public UserTO updateUser(String username, String email);
 
-	public boolean changePassword(String username);
+	public boolean changePassword(String username, String password);
 
 	public void deleteUser(String username);
 
 	public List<UserTO> findAll();
-
-	public UserTO findByUsername(String username);
 
 	public UserTO findByEmail(String email);
 

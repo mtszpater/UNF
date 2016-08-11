@@ -19,7 +19,7 @@ public class DozerConverterTest {
 	private static final String DESCRIPTION = "simple description";
 	private static final String TITLE = "title";
 	private static final String USERNAME = "unf_dev";
-	private static final Date DATE = new Date(1470691194);
+	private static final Date DATE = new Date(1470691194000L);
 	private User user = new User();
 	private DozerConverter converter = new DozerConverter();
 

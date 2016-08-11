@@ -1,6 +1,7 @@
 package pl.wroc.uni.unf.domain.service.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.wroc.uni.unf.domain.dao.NewsDAO;
 import pl.wroc.uni.unf.domain.dao.UserDAO;
 import pl.wroc.uni.unf.domain.entity.News;
@@ -9,6 +10,7 @@ import pl.wroc.uni.unf.domain.service.NewsService;
 import pl.wroc.uni.unf.domain.to.NewsTO;
 import pl.wroc.uni.unf.utilities.mapper.ObjectMapper;
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.List;
 /**
  * @author Notechus.
  */
+@Transactional
+@Service("newsService")
 public class NewsServiceBean implements NewsService {
 
 	@Autowired
@@ -26,7 +30,7 @@ public class NewsServiceBean implements NewsService {
 
 	@Override
 	public void postNews(String title, String description, Date date, String username) {
-		User user = userDAO.findUserByUsername(username);
+		User user = userDAO.find(username);
 
 		News news = new News();
 		news.setTitle(title);

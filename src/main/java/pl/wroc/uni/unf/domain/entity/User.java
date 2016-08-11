@@ -1,5 +1,7 @@
 package pl.wroc.uni.unf.domain.entity;
 
+import org.dozer.Mapping;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public boolean getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 
