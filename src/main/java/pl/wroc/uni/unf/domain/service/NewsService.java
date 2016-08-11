@@ -12,13 +12,17 @@ import java.util.List;
  */
 public interface NewsService {
 
-	public void postNews(String title, String description, Date date, Integer duration, String place, Integer userId);
+	public void postNews(String title, String description, Date date, String username);
 
 	public NewsTO updateNews(News news);
+
+	public void deleteNews(Long id);
 
 	public List<NewsTO> findAll();
 
 	public List<NewsTO> findByUser(String username);
 
 	public List<NewsTO> findByDate(Date date);
+
+	public NewsTO findById(Long id);
 }

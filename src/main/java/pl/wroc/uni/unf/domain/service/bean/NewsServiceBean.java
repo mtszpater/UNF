@@ -2,6 +2,7 @@ package pl.wroc.uni.unf.domain.service.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.wroc.uni.unf.domain.dao.NewsDAO;
+import pl.wroc.uni.unf.domain.dao.UserDAO;
 import pl.wroc.uni.unf.domain.entity.News;
 import pl.wroc.uni.unf.domain.entity.User;
 import pl.wroc.uni.unf.domain.service.NewsService;
@@ -20,12 +21,14 @@ public class NewsServiceBean implements NewsService {
 	@Autowired
 	private NewsDAO newsDAO;
 
-	@Override
-	public void postNews(String title, String description, Date date, Integer duration, String place, Integer userId) {
-		// user_id is temporary i promise
-		User user = new User();
+	@Autowired
+	private UserDAO userDAO;
 
-		// TEMPORARY HACK
+	@Override
+	public void postNews(String title, String description, Date date, String username) {
+
+		User user = userDAO.findUserByUsername(username);
+
 		News news = new News();
 		news.setTitle(title);
 		news.setDescription(description);
@@ -37,26 +40,38 @@ public class NewsServiceBean implements NewsService {
 	@Override
 	public NewsTO updateNews(News news) {
 		News updated = newsDAO.update(news);
-		return null;
+		return ObjectMapper.getInstance().getDozerConverter().convert(updated, NewsTO.class);
+	}
+
+	@Override
+	public void deleteNews(Long id) {
+		newsDAO.delete(id);
 	}
 
 	@Override
 	public List<NewsTO> findAll() {
 		List<News> newsList = newsDAO.findAll();
-		List<NewsTO> newsTOs = (List<NewsTO>) ObjectMapper.getInstance().getDozerConverter().convertList(newsList, NewsTO.class);
-		return newsTOs;
+
+		return ObjectMapper.getInstance().getDozerConverter().convertList(newsList, NewsTO.class);
 	}
 
 	@Override
 	public List<NewsTO> findByUser(String username) {
 		List<News> newsList = newsDAO.findByUser(username);
-		return null;
+
+		return ObjectMapper.getInstance().getDozerConverter().convertList(newsList, NewsTO.class);
 	}
 
 	@Override
 	public List<NewsTO> findByDate(Date date) {
 		List<News> newsList = newsDAO.findByDate(date);
 
-		return null;
+		return ObjectMapper.getInstance().getDozerConverter().convertList(newsList, NewsTO.class);
+	}
+
+	@Override
+	public NewsTO findById(Long id) {
+		News news = newsDAO.find(id);
+		return ObjectMapper.getInstance().getDozerConverter().convert(news, NewsTO.class);
 	}
 }

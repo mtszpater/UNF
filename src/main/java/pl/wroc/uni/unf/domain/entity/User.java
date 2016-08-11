@@ -7,7 +7,7 @@ import java.util.List;
  * @author Notechus.
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 public class User implements java.io.Serializable {
 
 	@Id

@@ -6,7 +6,7 @@
     <groupId>pl.wroc.uni.unf</groupId>
     <artifactId>webservice</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
