@@ -11,7 +11,7 @@ import java.util.List;
  * @author Notechus.
  */
 @Repository("userDAO")
-public class UserDAOBean extends BaseEntityDAO<User, Long> implements UserDAO {
+public class UserDAOBean extends BaseEntityDAO<User, String> implements UserDAO {
 
 	@Override
 	public User findUserByUsername(String username) {

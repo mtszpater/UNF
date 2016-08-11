@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Notechus.
  */
-public abstract class BaseEntityDAO<T extends Serializable, ID extends Number> implements EntityDAO<T, ID> {
+public abstract class BaseEntityDAO<T extends Serializable, ID extends Serializable> implements EntityDAO<T, ID> {
 
 	@PersistenceContext
 	protected EntityManager entityManager;

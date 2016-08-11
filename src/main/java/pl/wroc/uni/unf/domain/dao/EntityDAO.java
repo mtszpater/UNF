@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Notechus.
  */
-public interface EntityDAO<T extends Serializable, ID extends Number> {
+public interface EntityDAO<T extends Serializable, ID extends Serializable> {
 	public T create(T entity);
 
 	public T update(T entity);
