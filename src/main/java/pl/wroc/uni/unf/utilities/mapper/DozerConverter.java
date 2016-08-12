@@ -13,7 +13,7 @@ public class DozerConverter {
 	private DozerBeanMapper dozerBeanMapper;
 
 	public DozerConverter() {
-		dozerBeanMapper = new DozerBeanMapper();
+		dozerBeanMapper = new DozerBeanMapper(prepareMappingList());
 	}
 
 	public <T> T convert(Object source, Class<T> destinationClass) {
@@ -21,10 +21,17 @@ public class DozerConverter {
 	}
 
 	public <T> List<T> convertList(List<?> list, Class<T> destinationClass) {
-		List<T> resultList = new ArrayList<T>(list.size());
+		List<T> resultList = new ArrayList<>(list.size());
 		for (Object i : list) {
 			resultList.add(convert(i, destinationClass));
 		}
 		return resultList;
+	}
+
+	private List<String> prepareMappingList() {
+		List<String> list = new ArrayList<>();
+		list.add("mappings/domain_mappings.xml");
+
+		return list;
 	}
 }
