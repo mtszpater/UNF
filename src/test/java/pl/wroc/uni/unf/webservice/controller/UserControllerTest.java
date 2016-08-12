@@ -42,12 +42,14 @@ public class UserControllerTest {
         controller = new UserController(userService);
     }
 
-    // Need: getUserByUsername
-//    @Test
-//    public void ShouldReturnUserByHisUsername()
-//    {
-//        assertEquals(controller.getUserByUsername(USERNAME, TOKEN), new ResponseEntity<>(createUserTO(), new HttpHeaders(), HttpStatus.OK));
-//    }
+
+    @Test
+    public void ShouldReturnUserByHisUsername()
+    {
+        Mockito.when(userService.find(USERNAME)).thenReturn(createUserTO());
+
+        assertEquals(controller.getUserByUsername(USERNAME, TOKEN), new ResponseEntity<>(createUserTO(), new HttpHeaders(), HttpStatus.OK));
+    }
 
     @Test
     public void ShouldReturnListWithUsers()

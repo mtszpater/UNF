@@ -34,11 +34,11 @@ public class UserController {
 
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<User> getUserByUsername(
+	public ResponseEntity<UserTO> getUserByUsername(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
-		return null;
+		return new ResponseEntity<>(userService.find(username), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
