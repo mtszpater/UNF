@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.wroc.uni.unf.domain.entity.News;
 import pl.wroc.uni.unf.domain.service.NewsService;
 import pl.wroc.uni.unf.domain.to.NewsTO;
 
@@ -84,9 +85,14 @@ public class NewsController {
 			@RequestParam(value = "id", defaultValue = "0") Long newsId,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
-		NewsTO news = newsService.updateNews(newsId, newsTitle, newsDescription);
+		News news = new News();
 
-		return new ResponseEntity<>(news, new HttpHeaders(), HttpStatus.OK);
+		news.setDescription(newsDescription);
+		news.setTitle(newsTitle);
+		news.setId(newsId);
+		NewsTO newsTO = newsService.updateNews(news);
+
+		return new ResponseEntity<>(newsTO, new HttpHeaders(), HttpStatus.OK);
 	}
 
 
