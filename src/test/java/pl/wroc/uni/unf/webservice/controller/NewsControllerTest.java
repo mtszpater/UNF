@@ -13,6 +13,7 @@ import pl.wroc.uni.unf.utilities.mapper.DozerConverter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import static org.junit.Assert.*;
 
@@ -70,7 +71,7 @@ public class NewsControllerTest {
 	@Test
 	public void ShouldReturnSuccessAfterUpdateNews() throws Exception {
 
-		Mockito.when(newsService.updateNews(Matchers.anyObject())).thenReturn(createNewsTO());
+		Mockito.when(newsService.updateNews(Matchers.anyLong(), Matchers.anyString(), Matchers.anyString())).thenReturn(createNewsTO());
 
 		NewsController controller = new NewsController(newsService);
 

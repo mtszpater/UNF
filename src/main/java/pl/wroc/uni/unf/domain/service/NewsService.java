@@ -26,5 +26,5 @@ public interface NewsService {
 
 	public NewsTO findById(Long id);
 
-	NewsTO updateNews(Long id, String title, String description);
+	public NewsTO updateNews(Long id, String title, String description);
 }
