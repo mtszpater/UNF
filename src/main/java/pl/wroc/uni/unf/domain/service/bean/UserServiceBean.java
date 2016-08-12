@@ -61,6 +61,12 @@ public class UserServiceBean implements UserService {
 	}
 
 	@Override
+	public UserTO find(String username) {
+		User user = userDAO.find(username);
+		return ObjectMapper.getInstance().getDozerConverter().convert(user, UserTO.class);
+	}
+
+	@Override
 	public UserTO findByEmail(String email) {
 		User user = userDAO.findUserByEmail(email);
 		return ObjectMapper.getInstance().getDozerConverter().convert(user, UserTO.class);
