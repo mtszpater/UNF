@@ -1,5 +1,6 @@
 package pl.wroc.uni.unf.webservice.controller;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
 import org.springframework.http.HttpHeaders;
@@ -25,20 +26,24 @@ public class NewsControllerTest {
 	@Mock
 	private NewsService newsService = Mockito.mock(NewsServiceBean.class);
 
-	@Test
-	public void ShouldReturnListWithOneNews() throws Exception {
+	private NewsController controller;
 
+	@Before
+	public void setUp() {
+		controller = new NewsController(newsService);
+	}
+
+	@Test
+	public void shouldReturnListWithOneNews() throws Exception {
 		Mockito.when(newsService.findAll()).thenReturn(createListWithNews());
 
-		NewsController controller = new NewsController(newsService);
 
 		assertEquals(controller.getNews(null, 0L), new ResponseEntity<>(createListWithNews(), new HttpHeaders(), HttpStatus.OK));
 
 	}
 
 	@Test
-	public void ShouldReturnListWithOneNewsForUser() throws Exception {
-
+	public void shouldReturnListWithOneNewsForUser() throws Exception {
 		Mockito.when(newsService.findByUser("user")).thenReturn(createListWithNews());
 
 		NewsController controller = new NewsController(newsService);
@@ -48,44 +53,31 @@ public class NewsControllerTest {
 	}
 
 	@Test
-	public void ShouldReturnSuccessAfterPostNews() throws Exception {
-
-		NewsController controller = new NewsController();
+	public void shouldReturnSuccessAfterPostNews() throws Exception {
 
 		assertEquals(controller.addNews("Title", "Description", "user", 0L), new ResponseEntity(HttpStatus.OK));
-
 	}
 
 
 	@Test
-	public void ShouldReturnPostWhileGettingPostById() throws Exception {
-
+	public void shouldReturnPostWhileGettingPostById() throws Exception {
 		Mockito.when(newsService.findById(0L)).thenReturn(createNewsTO());
-
-		NewsController controller = new NewsController(newsService);
 
 		assertEquals(controller.getNewsById(0L, 0L), new ResponseEntity<>(createNewsTO(), new HttpHeaders(), HttpStatus.OK));
 	}
 
 
 	@Test
-	public void ShouldReturnSuccessAfterUpdateNews() throws Exception {
-
+	public void shouldReturnSuccessAfterUpdateNews() throws Exception {
 		Mockito.when(newsService.updateNews(Matchers.anyLong(), Matchers.anyString(), Matchers.anyString())).thenReturn(createNewsTO());
 
-		NewsController controller = new NewsController(newsService);
-
 		assertEquals(controller.updateNews("Title", "Description", 0L, 0L), new ResponseEntity<>(createNewsTO(), new HttpHeaders(), HttpStatus.OK));
-
 	}
 
 	@Test
-	public void ShouldReturnSuccessAfterDeleteNews() throws Exception {
-
-		NewsController controller = new NewsController(newsService);
+	public void shouldReturnSuccessAfterDeleteNews() throws Exception {
 
 		assertEquals(controller.deleteNews(0L, 0L), new ResponseEntity(HttpStatus.OK));
-
 	}
 
 	private News createNews() {
@@ -98,11 +90,10 @@ public class NewsControllerTest {
 
 	private NewsTO createNewsTO() {
 		DozerConverter converter = new DozerConverter();
-		NewsTO mappedNewsTO = (NewsTO) converter.convert(createNews(), NewsTO.class);
+		NewsTO mappedNewsTO = converter.convert(createNews(), NewsTO.class);
 
 		return mappedNewsTO;
 	}
-
 
 	private List<NewsTO> createListWithNews() {
 		List<NewsTO> listNews = new ArrayList<>();
@@ -111,6 +102,4 @@ public class NewsControllerTest {
 
 		return listNews;
 	}
-
-
 }
