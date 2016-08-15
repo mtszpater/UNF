@@ -30,10 +30,11 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	public UserController() {}
+	public UserController() {
+	}
 
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path = "/details", method = RequestMethod.GET)
 	public ResponseEntity<UserTO> getUserByUsername(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
@@ -47,15 +48,6 @@ public class UserController {
 
 		return new ResponseEntity(userService.findAll(), new HttpHeaders(), HttpStatus.OK);
 	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getAllUsersByRole(
-			@RequestParam(value = "role") String role,
-			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
-
-		return null;
-	}
-
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity addUser(
@@ -71,7 +63,7 @@ public class UserController {
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password", defaultValue = "default") String password,
 			@RequestParam(value = "email", defaultValue = "default") String email,
-			@RequestParam(value = "token", defaultValue = "-1") Long userToken){
+			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
 
 		UserTO user = userService.updateUser(username, email);
 		userService.changePassword(username, password);
@@ -88,6 +80,4 @@ public class UserController {
 
 		return new ResponseEntity(HttpStatus.OK);
 	}
-
-
 }

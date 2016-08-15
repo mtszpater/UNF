@@ -36,6 +36,7 @@ public class NewsController {
 	}
 
 	@Secured("ROLE_USER")
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<NewsTO>> getNews(
 			@RequestParam(value = "username", required = false) String username,
@@ -53,7 +54,7 @@ public class NewsController {
 	}
 
 	@Secured("ROLE_USER")
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(path = "/details", method = RequestMethod.GET)// tymczasowe - kloci sie z powyzszym GETEM
 	public ResponseEntity<NewsTO> getNewsById(
 			@RequestParam(value = "id", defaultValue = "0") Long newsId,
 			@RequestParam(value = "token", defaultValue = "-1") Long userToken) {
