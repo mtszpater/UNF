@@ -30,8 +30,6 @@ CREATE TABLE news (
   CONSTRAINT fk_news_users FOREIGN KEY (username) REFERENCES users(username)
 );
 
-select * from users;
-
 # password is unf_dev hashed with bcrypt
 insert into users(username, email, password, enabled) values ('unf_dev', 'unv_dev@unf.uni.wroc.pl','$2a$10$J04CRozmf2qYVWKb/h7oKe5Eb4h3IKZ2gQo.bCHmACJwyYnbXe7Oe', 1);
 insert into authorities (username, authority) value ('unf_dev','ROLE_USER');
